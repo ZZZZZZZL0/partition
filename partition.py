@@ -1,10 +1,9 @@
-
-def card(n,m,k):
+def card(n, m, k):
     res = []
     if n < 0 or k > m*n:
         pass
     elif n == k or k == m*n:
-        res = [k//n for i in range(n)]
+        res = [k//n for j in range(n)]
     elif n == 1:
         res = [k]
     else:
@@ -24,8 +23,8 @@ x = input()
 cyc = int(x)
 
 
-if cyc < 1:
-    raise TypeError("Only the positive integer is allowed")
+if cyc < 1 or cyc > 3000:
+    raise TypeError("Only the positive integer no more than 3000 is allowed")
 else:
     nmklist = []
     for i in range(cyc):
@@ -36,15 +35,20 @@ else:
         # length of strlist should be limited by 3
         nmklist.append(strlist)
 
+    p = 10^9+7
     # start the computation
     for eitem in nmklist:
         # eitem = nmklist[0]
         n = eitem[0]
         m = eitem[1]
         k = eitem[2]
-        # we should guarantee that 0 < n <= k <= m*n
-        if n < 0 or k > m * n:
-            print("wrong inputs of m n k")
-        else:
-            outres = card(n, m, k)
-            print(len(outres))
+        bn = not((n < 1) or (n > 30))
+        bm = not((m < 1) or (m > 30))
+        bk = not((k < 1) or (k > 1000))
+        if bn and bm and bk:
+            # we should guarantee that 0 < n <= k <= m*n
+            if n < 0 or k > m * n:
+                print("wrong inputs of m n k")
+            else:
+                outres = card(n, m, k)
+                print(len(outres) % p)
